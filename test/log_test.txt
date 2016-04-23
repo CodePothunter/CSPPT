@@ -1,0 +1,40 @@
+begin
+WARNING: fbcunn not found, falling back to cunn.
+OK
+53430 7
+[program started on Sat Apr 23 23:50:28 2016]
+[command line arguments]
+deviceId	1
+batch_size	10
+rnn_type	lstm
+bptt	9
+alpha_decay	0.6
+word_win_right	4
+valid	
+random_seed	345
+init_weight	0.2
+beta	0
+vocab	Vocab
+vocab_size	table: 0x40916298
+trace_level	1
+min_improvement	1.01
+print_model	
+emb_size	100
+test	test/tmp/input.list
+max_epoch	50
+print_vocab	test/tmp/vocab
+read_model	test/models/formal.rnn
+hidden_prototype	100
+momentum	0
+outlabel	idx2la
+alpha	0.05
+train	
+dropout	0
+max_norm	50
+shuffle	1
+test_only	1
+word_win_left	0
+[----------------------]
+Loading model from test/models/formal.rnn
+0.000885009765625 0.0010960102081299 0.4118709564209
+Test result: words = 146, CE = 0.58799466694871, F1 = 0.0000
