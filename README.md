@@ -9,4 +9,4 @@ To run the tool, use the following command.
 bash test.sh
 ```
 
-If you wants to predict more than one paragraph without reloading the model, you can input "1" after the program giving you the result of last paragraph.
+If you want to predict more than one paragraph without reloading the model, you can input "1" after the program giving you the result of last paragraph.
