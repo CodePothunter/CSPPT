@@ -42,7 +42,7 @@ function F1:get_batch(probs, input, labels, pos)
                 if self.outputfile ~= nil then
                     for k = 1, #self.input_cache[i] do
                         self.outputfile:write(self.input_cache[i][k] .. ' ' .. self.label_cache[i][k] .. ' ' .. self.pred_cache[i][k] .. '\n')
-                        --print(self.input_cache[i][k] .. ' ' .. self.label_cache[i][k] .. ' ' .. self.pred_cache[i][k] .. '\n')
+                        -- print(self.input_cache[i][k] .. ' ' .. self.label_cache[i][k] .. ' ' .. self.pred_cache[i][k] .. '\n')
                     end
                     self.outputfile:write('\n')
                 end
@@ -68,6 +68,8 @@ function F1:get_batch(probs, input, labels, pos)
                 end
                 self.write_time = self.write_time + torch.toc(beg_time)
             end
+            self.outputfile:close()
+            self.outputfile = io.open("test/tmp/input.list.result", "a")
         end
         self.label_cache[i][#self.label_cache[i]+1] = self.vocab:inv_get_output(labels[i])
         local beg_time = torch.tic()

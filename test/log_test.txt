@@ -2,7 +2,7 @@ begin
 WARNING: fbcunn not found, falling back to cunn.
 OK
 53430 7
-[program started on Sat Apr 23 23:50:28 2016]
+[program started on Sun Apr 24 11:10:27 2016]
 [command line arguments]
 deviceId	1
 batch_size	10
@@ -15,7 +15,7 @@ random_seed	345
 init_weight	0.2
 beta	0
 vocab	Vocab
-vocab_size	table: 0x40916298
+vocab_size	table: 0x40d41380
 trace_level	1
 min_improvement	1.01
 print_model	
@@ -36,5 +36,5 @@ test_only	1
 word_win_left	0
 [----------------------]
 Loading model from test/models/formal.rnn
-0.000885009765625 0.0010960102081299 0.4118709564209
-Test result: words = 146, CE = 0.58799466694871, F1 = 0.0000
+0.00078701972961426 0.00053119659423828 0.49740386009216
+Test result: words = 159, CE = 0.49035279855788, F1 = 0.0000

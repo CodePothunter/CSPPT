@@ -1,12 +1,9 @@
-print("begin")
 local status, cunn = pcall(require, 'fbcunn')
 if not status then
 	status, cunn = pcall(require, 'cunn')
 	if not status then
 		print("ERROR: Could not find cunn or fbcunn.")
 		os.exit()
-	else
-		print("WARNING: fbcunn not found, falling back to cunn.")
 	end
 else
     print("Using fbcunn")
@@ -43,7 +40,7 @@ cmd:option('-print_model', '', 'print model to this file')
 cmd:option('-vocab', '', 'read vocab from this file')
 cmd:option('-outlabel', '', 'read output label from this file')
 cmd:option('-print_vocab', '', 'print vocab to this file')
-cmd:option('-trace_level', 1, 'trace level')
+cmd:option('-trace_level', 0, 'trace level')
 cmd:option('-test_only', 0, 'only test a test file using an existing model')
 
 cmd:text('Model Options:')
@@ -75,11 +72,10 @@ cmd:option('-shuffle', 1, 'whether to shuffle data before each epoch')
 
 -- parse input params
 local options = cmd:parse(arg)
-print("OK")
+-- print("OK")
 if options.deviceId > 0 then
 	cutorch.setDevice(options.deviceId)
-else
-	options.deviceId = chooseGPU()
+else options.deviceId = chooseGPU()
 	cutorch.setDevice(options.deviceId)
 	local device_params = cutorch.getDeviceProperties(options.deviceId)
 	local computability = device_params.major * 10 + device_params.minor
@@ -111,7 +107,7 @@ else
 end
 
 options.vocab_size = vocab:vocab_size()
-print(options.vocab_size["input"] .. ' ' .. options.vocab_size["output"])
+--print(options.vocab_size["input"] .. ' ' .. options.vocab_size["output"])
 options.vocab = vocab
 if options.print_vocab ~= '' then
 	options.vocab:save(options.print_vocab,options.print_vocab .. '.label')
@@ -187,8 +183,15 @@ if options.train ~= '' and options.valid ~= '' and options.test_only == 0 then
     print('Training finished, elapsed time = ' .. string.format('%.1f', elapsed_time))
     print('BEST RESULT: epoch ' .. result['iter'] .. ' best valid F1 ' .. result['vf1'] .. ' test F1 ' .. result['tf1'])
 else
-    if options.test_only == 1 and options.read_model ~= '' then
-        local test_len, test_ce, res_test = slu:evaluate(options.test, options.test .. '.result')
-        print('Test result: words = ' .. test_len .. ', CE = ' .. test_ce .. ', F1 = ' .. string.format('%.4f',res_test['F1']))
+    local ctn = "1\n"
+    while ctn == "1\n" do
+        print("Please input the text:")
+        os.execute("python test/convert2list.py 2> test/error_test.txt")
+        if options.test_only == 1 and options.read_model ~= '' then
+             local test_len, test_ce, res_test = slu:evaluate(options.test, options.test .. '.result')
+            print("Your result")
+        end
+        os.execute("python test/output.py")
+        ctn = io.read(2)
     end
 end

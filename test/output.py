@@ -2,7 +2,6 @@
 # -*- coding:utf8 -*-
 
 import sys
-
 def getline(lines):
     words = []
     labels = []
@@ -21,7 +20,9 @@ lines1 = i1.readlines()[1:-2]
 lines2 = i2.readlines()[2:-2]
 
 if (len(lines1) != len(lines2)):
+    print len(lines1), len(lines2)
     print "Error, NOT EQUAL"
+    exit()
 words1, labels1 = getline(lines1)
 words2, labels2 = getline(lines2)
 

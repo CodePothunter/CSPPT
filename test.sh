@@ -17,8 +17,8 @@ echo "$0 $@"
 expdir=test #_STDbias
 [ ! -d $expdir ] && mkdir -p $expdir
 
-echo Please input the text:
-python test/convert2list.py 2> $expdir/error_test.txt
+# echo Please input the text:
+# python test/convert2list.py 2> $expdir/error_test.txt
 #cp test/tmp/input.list $expdir/input_test
 
     # -vocab $datadir/atis/train -outlabel $datadir/atis/idx2la -print_vocab $expdir/vocab \ 
@@ -35,8 +35,8 @@ python test/convert2list.py 2> $expdir/error_test.txt
   -batch_size $mb -bptt 9 \
   -alpha_decay 0.6 -alpha $lr \
   -init_weight 0.2 -random_seed 345 \
-  1> $expdir/log_test.txt 2> $expdir/error_test.txt
+  # 1> $expdir/log_test.txt 2> $expdir/error_test.txt
   #| tee $expdir/log_test.txt 
 
-echo Your result:
-python test/output.py
+# echo Your result:
+# python test/output.py

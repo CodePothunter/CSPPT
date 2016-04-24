@@ -246,9 +246,7 @@ function LSTM:evaluate(data, outputfile)
     if outputfile then
         outputfile = io.open(outputfile, 'w')
     end
-
     self.F1 = F1(self.options.vocab, self.options.batch_size, outputfile, self.options.word_win_left) 
-
     local ce = 0 --cross entropy
     local len = 0
     local probs = {}
@@ -284,7 +282,7 @@ function LSTM:evaluate(data, outputfile)
     end
 
     ce = self.err[1]
-    print(read_time..' '..trf_time..' '..forward_time)
+    -- print(read_time..' '..trf_time..' '..forward_time)
     enable_dropout(self.models)
     return len, ce/len, self.F1:get_metric()
 end
