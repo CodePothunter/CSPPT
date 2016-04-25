@@ -1,8 +1,4 @@
 BOS	NN	O
-你	NN	E
-今天	NN	E
-吃	NN	E
-了	NN	E
-吗	NN	E
+aaa	NN	E
 EOS	NN	O
 

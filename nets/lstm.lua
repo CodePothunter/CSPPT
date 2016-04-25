@@ -292,6 +292,11 @@ function LSTM:load_model(input_file)
     self.core_model = transfer2gpu(self.core_model)
 end
 
+function LSTM:convert_model2cpu(input_file, output_file)
+    local cm = torch.load(intput_file)
+    cm = cm:float()
+    torch.save(output_file, cm) 
+end
 function LSTM:restore(model)
     self:load_model(model)
     --self.core_model = transfer2gpu(self.core_model)

@@ -131,7 +131,6 @@ else
 	slu = RNN(options)
 end
 slu:init(options.read_model)
-
 local start_time = torch.tic()
 local alpha_decay = false
 
