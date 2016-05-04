@@ -11,10 +11,10 @@ wr=4         # right context window of the current word
 me=50     # max epoch
 
 echo "$0 $@"
-. ./utils/parse_options.sh || exit 1
+. CSPPT/utils/parse_options.sh || exit 1
 #xx=$1
 
-expdir=test #_STDbias
+expdir=CSPPT/test #_STDbias
 [ ! -d $expdir ] && mkdir -p $expdir
 
 # echo Please input the text:
@@ -23,12 +23,12 @@ expdir=test #_STDbias
 
     # -vocab $datadir/atis/train -outlabel $datadir/atis/idx2la -print_vocab $expdir/vocab \ 
     
-/speechlab/users/sz128/src/torch/install/bin/luajit main.lua -test $expdir/tmp/input.list \
-  -vocab $expdir/vocab -outlabel idx2la -print_vocab $expdir/tmp/vocab \
+/home/slhome/qzx02/torch/install/bin/luajit CSPPT/main.lua -test $expdir/tmp/input.list \
+  -vocab $expdir/vocab -outlabel CSPPT/idx2la -print_vocab $expdir/tmp/vocab \
   -test_only 1\
   -rnn_type lstm \
   -deviceId 1\
-  -read_model $expdir/models/formal.rnn \
+  -read_model $expdir/models/formal_cpu.rnn \
   -max_epoch $me \
   -hidden_prototype $proto -emb_size $es \
   -word_win_left $wl -word_win_right $wr \

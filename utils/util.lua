@@ -13,7 +13,7 @@ function chooseGPU()
 end
 
 function transfer2gpu(module)
-	return module:cuda()
+	return module
 end
 
 function readline(file)
@@ -151,8 +151,7 @@ end
 
 function random_seed(seed)
 	torch.manualSeed(seed)
-	cutorch.manualSeed(seed)
-	torch.zeros(1, 1):cuda():uniform()
+	torch.zeros(1, 1):float():uniform()
 	local rand_file = torch.DiskFile('.randfile', 'w'):binary()
 	for i = 1, 100000 do
 		local arr = torch.rand(100):float()

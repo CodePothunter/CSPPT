@@ -1,12 +1,12 @@
 require 'luarocks.loader'
 require 'nngraph'
-require 'cunn'
+require 'nn'
 require 'rnn/LinearNoBias'
 
 local TRAIN_LOG_WORDS = 100000
 
 local LSTM = torch.class('LSTM')
-
+torch.setdefaulttensortype('torch.FloatTensor')
 function LSTM:__init(options)
     self.options = options
 end

@@ -1,6 +1,6 @@
 require 'luarocks.loader'
 require 'nngraph'
-require 'cunn'
+require 'nn'
 require 'rnn/LinearNoBias'
 
 local TRAIN_LOG_WORDS = 100000

@@ -17,8 +17,8 @@ def conv2list(text, o):
     o.write("EOS\tNN\tO\n\n")
 
 text = raw_input()
-o1 = open("./test/tmp/input", "w")
-o2 = open("./test/tmp/input.list", "w")
+o1 = open("./CSPPT/test/tmp/input", "w")
+o2 = open("./CSPPT/test/tmp/input.list", "w")
 o1.write(text)
 o1.close()
 text_nopunc = remove_punc(text)

@@ -1,24 +1,14 @@
-local status, cunn = pcall(require, 'fbcunn')
-if not status then
-	status, cunn = pcall(require, 'cunn')
-	if not status then
-		print("ERROR: Could not find cunn or fbcunn.")
-		os.exit()
-	end
-else
-    print("Using fbcunn")
-end
-
+local status, cunn = pcall(require, 'nn')
 local stringx = require 'pl.stringx'
 LookupTable = nn.LookupTable
-require 'cutorch'
-require 'utils/util'
-require 'utils/queue'
-require 'utils/heap'
-require 'utils/reader'
-require 'utils/metrics'
-require 'nets/lstm'
-require 'nets/rnn'
+require 'torch'
+require 'CSPPT/utils/util'
+require 'CSPPT/utils/queue'
+require 'CSPPT/utils/heap'
+require 'CSPPT/utils/reader'
+require 'CSPPT/utils/metrics'
+require 'CSPPT/nets/lstm'
+require 'CSPPT/nets/rnn'
 
 --[[
 #########################################################
@@ -73,19 +63,6 @@ cmd:option('-shuffle', 1, 'whether to shuffle data before each epoch')
 -- parse input params
 local options = cmd:parse(arg)
 -- print("OK")
-if options.deviceId > 0 then
-	cutorch.setDevice(options.deviceId)
-else options.deviceId = chooseGPU()
-	cutorch.setDevice(options.deviceId)
-	local device_params = cutorch.getDeviceProperties(options.deviceId)
-	local computability = device_params.major * 10 + device_params.minor
-	if computability < 35 and options.trace_level > 0 then
-		print("WARNING: fbcunn requires GPU with cuda computability >= 3.5, falling back to cunn.")
-	else
-		use_fbcunn = true
-		LookupTable = nn.LookupTableGPU
-	end
-end
 random_seed(options.random_seed)
 --print(torch.zeros(1, 1):cuda():uniform())
 
@@ -182,15 +159,10 @@ if options.train ~= '' and options.valid ~= '' and options.test_only == 0 then
     print('Training finished, elapsed time = ' .. string.format('%.1f', elapsed_time))
     print('BEST RESULT: epoch ' .. result['iter'] .. ' best valid F1 ' .. result['vf1'] .. ' test F1 ' .. result['tf1'])
 else
-    local ctn = "1\n"
-    while ctn == "1\n" do
-        print("Please input the text:")
-        os.execute("python test/convert2list.py 2> test/error_test.txt")
+        -- print("Please input the text:")
+        os.execute("python CSPPT/test/convert2list.py 2> CSPPT/test/error_test.txt")
         if options.test_only == 1 and options.read_model ~= '' then
              local test_len, test_ce, res_test = slu:evaluate(options.test, options.test .. '.result')
-            print("Your result")
+        -- print("Your result")
         end
-        os.execute("python test/output.py")
-        ctn = io.read(2)
-    end
 end
